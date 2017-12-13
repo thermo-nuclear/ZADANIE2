@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct list
+{
+    int item;
+    struct list *next;
+    struct list *prev;
+}list;
+
+list* list_new()
+{
+    list *a;
+    a -> next = NULL;
+    a -> prev = NULL;
+    return a;
+}
+
+int list_delete(list *l)
+{
+    list *p;
+    int c = 0;
+    for (p = l; p -> next != NULL;)
+    {
+        p = p -> next;
+        p -> prev = NULL;
+        c = 1;
+    }
+    return c;
+}
+
+int push (list *l, int a)
+{
+    list *p, *q;
+    int c = 0;
+    for (p = l; p -> next != NULL;)
+    {
+        p = p -> next;
+        c = 1;
+    }
+    p -> next = q;
+    q -> prev = p;
+    q -> item = a;
+    return c;
+}
+
+int pop (list *l, int x)
+{
+    list *p;
+    int c = 0;
+    for (p = l; p -> next != NULL;)
+    {
+        p = p -> next;
+        c = 1;
+    }
+    long long int *k;
+    k = (long long int *)x;
+    *k = p -> item;
+    return c;
+}
+
+int unshift (list *l, int a)
+{
+    list *p;
+    int c = 0;
+    if (l != NULL)
+    {
+        p -> next = l;
+        l -> prev = p;
+        p -> prev = NULL;
+        c = 1;
+    }
+    return c;
+}
+
+int shift (list *l, int a)
+{
+    int c = 1;
+    long long int *k;
+    k = (long long int *)a;
+    *k = l -> item;
+    return c;
+}
+
+void reverse (list *l)
+{
+    list *tail = 0;
+    list *p;
+    list *s;
+    for (p = l; p != NULL;)
+    {
+        s = p -> next;
+        p -> next = tail;
+        tail = p;
+        p = s;
+    }
+}
+
+int main()
+{
+    int k;
+    list *s = list_new();
+    push (s, 10);
+    pop (s, k);
+    unshift (s, 11);
+    shift (s, k);
+    reverse (s);
+    list_delete (s);
+    return 0;
+}
